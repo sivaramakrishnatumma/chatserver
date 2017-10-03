@@ -48,11 +48,13 @@ var allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 }
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use(allowCrossDomain);
-
+app.get('/', function(req, res){
+    res.send("Hi I am Chat application Server")
+})
 
 app.post('/register', function (req, res) {
     var user = req.body;
@@ -116,6 +118,6 @@ app.get('/messages', function (req, res) {
 
 
 
-app.server.listen(app.get('port'), function () {
+app.listen(app.get('port'), function () {
     console.log('Server started');
 });
